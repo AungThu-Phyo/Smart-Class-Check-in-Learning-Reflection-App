@@ -1,0 +1,79 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── Helper functions ────────────────────────────────────────────────────
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return request.auth.uid == uid;
+    }
+
+    function isValidMoodScore(score) {
+      return score is int && score >= 1 && score <= 5;
+    }
+
+    // ── Users collection ────────────────────────────────────────────────────
+    // A user can read/write only their own profile.
+
+    match /users/{userId} {
+      allow read, write: if isAuthenticated() && isOwner(userId);
+    }
+
+    // ── Class sessions ──────────────────────────────────────────────────────
+    // Any authenticated user can read class sessions.
+    // Only admin SDK (server-side) can create/update sessions.
+
+    match /classSessions/{sessionId} {
+      allow read: if isAuthenticated();
+      allow write: if false; // managed via server-side Admin SDK only
+    }
+
+    // ── Check-in records ────────────────────────────────────────────────────
+    // A student can create their own check-in and read their own records.
+    // Data must include required fields with valid values.
+
+    match /checkIns/{checkInId} {
+      allow read: if isAuthenticated()
+                  && isOwner(resource.data.studentId);
+
+      allow create: if isAuthenticated()
+                    && isOwner(request.resource.data.studentId)
+                    && request.resource.data.keys().hasAll([
+                         'studentId', 'classSessionId', 'timestamp',
+                         'latitude', 'longitude',
+                         'previousTopic', 'expectedTopic', 'moodScore'
+                       ])
+                    && isValidMoodScore(request.resource.data.moodScore)
+                    && request.resource.data.previousTopic is string
+                    && request.resource.data.expectedTopic is string;
+
+      // No updates or deletes by students
+      allow update, delete: if false;
+    }
+
+    // ── Completion records ──────────────────────────────────────────────────
+    // A student can create their own completion and read their own records.
+
+    match /completions/{completionId} {
+      allow read: if isAuthenticated()
+                  && isOwner(resource.data.studentId);
+
+      allow create: if isAuthenticated()
+                    && isOwner(request.resource.data.studentId)
+                    && request.resource.data.keys().hasAll([
+                         'studentId', 'classSessionId', 'timestamp',
+                         'latitude', 'longitude',
+                         'learnedToday', 'feedback'
+                       ])
+                    && request.resource.data.learnedToday is string
+                    && request.resource.data.feedback is string;
+
+      // No updates or deletes by students
+      allow update, delete: if false;
+    }
+  }
+}
