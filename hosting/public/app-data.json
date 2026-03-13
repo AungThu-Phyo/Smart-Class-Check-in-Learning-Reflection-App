@@ -1,0 +1,16 @@
+{
+  "appName": "Smart Class Check-in & Learning Reflection App",
+  "tagline": "GPS + QR + reflection workflow for classroom attendance integrity.",
+  "features": [
+    "Home dashboard with session status",
+    "Check-in flow with GPS capture and QR validation",
+    "Finish Class flow with post-class reflection",
+    "SQLite-based local persistence for MVP"
+  ],
+  "demoSession": {
+    "classTitle": "Smart Class Mobile Lab",
+    "roomName": "Innovation Lab 2",
+    "checkInQr": "SMART-CLASS-START",
+    "finishQr": "SMART-CLASS-END"
+  }
+}

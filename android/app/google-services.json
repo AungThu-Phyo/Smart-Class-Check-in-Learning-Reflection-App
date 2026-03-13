@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "554746987894",
+    "project_id": "smart-class-check-in-n-l-r-app",
+    "storage_bucket": "smart-class-check-in-n-l-r-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:554746987894:android:3da6bb80cd7d2d4dc7a657",
+        "android_client_info": {
+          "package_name": "com.example.smart_class_check_in_learning_reflection_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOU4DGrJytmCTGJAzH9wu5DisUe95TjvY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

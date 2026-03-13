@@ -1,0 +1,9 @@
+.dart_tool/
+.firebase/
+.flutter-plugins
+.flutter-plugins-dependencies
+.idea/
+.metadata
+.pub/
+build/
+firebase-debug.log
