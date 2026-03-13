@@ -102,12 +102,3 @@ If Firebase sync is not ready:
 - Local SQLite save still works.
 - The app shows Firebase init status and last error on the home screen.
 
-## AI Usage Report (Short)
-- What AI tools were used:
-GitHub Copilot (GPT-5.3-Codex) was used during development.
-
-- What AI helped generate:
-AI helped generate Flutter UI scaffolding, QR scanner flow wiring, Firebase bootstrap/error-handling improvements, and deployment/readme command structure.
-
-- What was modified or implemented manually:
-I manually adjusted validation behavior, configured Firebase project settings, verified API/auth behavior with live testing, finalized SQLite and Firebase integration behavior, and deployed the production build.
